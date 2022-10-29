@@ -6,7 +6,7 @@ from webapp.views.reviews import ReviewUpdateView, ReviewDeleteView
 
 urlpatterns = [
     path('', ProductsView.as_view(), name='show_products'),
-    path('products/<int:pk>', ProductView.as_view(), name='show_product'),
+    path('products/<int:pk>/', ProductView.as_view(), name='show_product'),
     path('products/add/', AddProductView.as_view(), name='add_product'),
     path('products/<int:pk>/edit/', ProductUpdateView.as_view(), name='edit_product'),
     path('products/<pk>/delete/', ProductDeleteView.as_view(), name='delete_product'),

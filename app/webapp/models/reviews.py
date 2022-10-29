@@ -10,7 +10,6 @@ class Review(models.Model):
         related_name='review_authors',
         on_delete=models.CASCADE,
     )
-
     product = models.ForeignKey(
         to='webapp.Product',
         verbose_name='Продукт, получивший отзыв',

@@ -1,11 +1,12 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.db.models import Avg
 from django.shortcuts import redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 
 from webapp.forms.products import ProductForm
 from webapp.forms.reviews import ReviewForm
-from webapp.models import Product
+from webapp.models import Product, Review
 
 
 class GroupPermission(UserPassesTestMixin):
@@ -46,6 +47,13 @@ class ProductView(DetailView):
     template_name = 'products/product.html'
     model = Product
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        p = Product.objects.filter(pk=self.kwargs.get('pk'))[0].reviewed_products.aggregate(
+            Avg('rating'))
+        context['q'] = p.get('rating__avg')
+        return context
+
 
 class ProductUpdateView(GroupPermission, SuccessDetailUrlMixin, LoginRequiredMixin, UpdateView):
     template_name = 'products/edit_product.html'
@@ -81,4 +89,3 @@ class ProductAddReviewView(GroupPermission, LoginRequiredMixin, CreateView):
         context = {}
         context['form'] = form
         return self.render_to_response(context)
-
