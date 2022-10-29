@@ -9,6 +9,8 @@ class ReviewForm(forms.ModelForm):
     error_css_class = 'error'
     label_css_class = 'label'
 
+
+
     class Meta:
         model = Review
         fields = ('description', 'rating')

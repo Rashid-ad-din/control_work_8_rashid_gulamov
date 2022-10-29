@@ -67,13 +67,12 @@
                             </li>
 
                         {% endif %}
+
+                        <span class="p-0 m-0 pl-2 pr-2 mt-3" style="font-size: 18px;">Отзывы:</span>
                         <p>
                             Средний рейтинг отзывов
                             {{ q }}
                         </p>
-
-
-                        <span class="p-0 m-0 pl-2 pr-2 mt-3" style="font-size: 18px;">Отзывы:</span>
                         {% for review in product.reviewed_products.all %}
                             <li class="list-group-item p-0 m-0 pl-2 pr-2 mt-3 bg-warning rounded"
                                 style="font-size: 18px;">

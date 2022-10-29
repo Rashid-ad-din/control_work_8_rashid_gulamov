@@ -2,6 +2,8 @@ from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
+from webapp.managers import ReviewManager
+
 
 class Review(models.Model):
     author = models.ForeignKey(
@@ -26,3 +28,5 @@ class Review(models.Model):
             MinValueValidator(limit_value=1, message='Значение не может быть менее 1')
         ]
     )
+
+    objects = ReviewManager()

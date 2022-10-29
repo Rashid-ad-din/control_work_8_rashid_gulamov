@@ -29,13 +29,14 @@
                             </div>
                             <p style="font-size: 16px;"
                                class="card-text ml-2 h-25">{{ product.get_category_display }}</p>
+                            <p style="font-size: 16px;"
+                               class="card-text ml-2 h-25">Средний рейтинг отзывов: {{ product.reviewed_products.get_average }}</p>
                             <div class="d-flex justify-content-around">
                                 <div>
                                     <a href="{% url 'show_product' product.pk %}"
                                        class="btn aqua mt-3 mb-2">
                                         Подробнее
                                     </a>
-
                                 </div>
                                 <div>
                                     <a href="{% url 'delete_product' product.pk %}"
