@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.contrib.auth import authenticate, login, logout, get_user_model, update_session_auth_hash
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.handlers.wsgi import WSGIRequest
 from django.core.paginator import Paginator
@@ -76,21 +76,10 @@ class UserChangeView(UpdateView):
     template_name = 'user_change.html'
     context_object_name = 'user_obj'
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        if not form.is_valid():
-            return redirect('user_change', pk=request.user.pk)
+    def form_valid(self, form):
         form.save()
-        username = form.cleaned_data.get('username')
-        password = form.cleaned_data.get('password')
-        next = form.cleaned_data.get('next')
-        user = authenticate(request, username=username, password=password)
-        if not user:
-            return redirect('user_change', pk=request.user.pk)
-        login(request, user)
-        if next:
-            return redirect(next)
-        return redirect(self.get_success_url())
+        update_session_auth_hash(self.request, form)
+        return super(UserChangeView, self).form_valid(form)
 
     def get_success_url(self):
         return reverse('user_detail', kwargs={'pk': self.object.pk})

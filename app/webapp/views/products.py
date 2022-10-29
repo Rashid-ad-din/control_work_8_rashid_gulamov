@@ -47,13 +47,6 @@ class ProductView(DetailView):
     template_name = 'products/product.html'
     model = Product
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        p = Product.objects.filter(pk=self.kwargs.get('pk'))[0].reviewed_products.aggregate(
-            Avg('rating'))
-        context['q'] = p.get('rating__avg')
-        return context
-
 
 class ProductUpdateView(GroupPermission, SuccessDetailUrlMixin, LoginRequiredMixin, UpdateView):
     template_name = 'products/edit_product.html'

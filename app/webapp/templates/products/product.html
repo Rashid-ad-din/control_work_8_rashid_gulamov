@@ -58,20 +58,20 @@
                         </li>
 
                         {% if user.is_authenticated %}
-                            <li class="list-group-item p-0 m-0 pl-2 pr-2 pt-3 pb-3 bg-light" style="font-size: 14px;">
+                            <li class="list-group-item p-0 m-0 pl-2 pr-2 pt-3 pb-3 bg-light"
+                                style="font-size: 14px;">
                                 <a class="btn aqua" href="{% url 'edit_product' product.pk %}"
                                 >Редактировать</a>
                                 <a class="btn aqua" style="margin-right: 225px;"
                                    href="{% url 'add_review' product.pk %}">Добавить отзыв</a>
                                 <a class="btn reddish" href="{% url 'delete_product' product.pk %}">Удалить</a>
                             </li>
-
                         {% endif %}
 
                         <span class="p-0 m-0 pl-2 pr-2 mt-3" style="font-size: 18px;">Отзывы:</span>
-                        <p>
+                        <p class="pl-2">
                             Средний рейтинг отзывов
-                            {{ q }}
+                            {{ product.reviewed_products.get_average }}
                         </p>
                         {% for review in product.reviewed_products.all %}
                             <li class="list-group-item p-0 m-0 pl-2 pr-2 mt-3 bg-warning rounded"
@@ -80,7 +80,7 @@
                                 <p class="">Автор: {{ review.author }}</p>
                                 <p class="">Email: {{ review.author.eamil }}</p>
                                 <p class="">{{ review.description }}</p>
-                                <p>{{ review.rating }}</p>
+                                <p>Оценка: {{ review.rating }}</p>
                             </li>
                             <li class="list-group-item p-0 m-0 pl-2 pr-2 pt-3 pb-3 bg-warning rounded"
                                 style="font-size: 14px;">
