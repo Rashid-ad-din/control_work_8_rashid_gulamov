@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h3 class="txt-color pt-3 pb-3">Изменение товара {{ product.pk }}</h3>
+
+    <form action="" method="POST" class="ml-4">
+        {% include 'partial/partial_add_edit.html' with button_text1='Сохранить' %}
+    </form>
+{% endblock %}
